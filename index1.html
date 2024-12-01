@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Reader</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+</head>
+<body>
+  <div id="pdf-container">
+    <canvas id="pdf-canvas"></canvas>
+  </div>
+  
+  <div id="controls">
+    <button id="prev" onclick="goToPreviousPage()">Previous</button>
+    <button id="next" onclick="goToNextPage()">Next</button>
+    <span>Page: <span id="page-num">1</span> / <span id="page-count">1</span></span>
+  </div>
+
+  <input type="file" id="upload" accept="application/pdf" onchange="loadPDF(event)" />
+
+  <script src="main.js"></script>
+</body>
+</html>
