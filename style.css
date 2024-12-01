@@ -17,6 +17,7 @@ body {
     border: 1px solid #ccc;
     max-width: 100%;
     height: auto;
+
   }
   
   #controls {
@@ -34,4 +35,3 @@ body {
   input[type="file"] {
     margin-top: 20px;
   }
-  
