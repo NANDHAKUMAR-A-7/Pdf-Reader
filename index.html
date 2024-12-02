@@ -1,26 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/style.css">
-  <title>PDF Reader</title>
-  <link rel="icon" type="image/png" href="/Pdf-Reader/images/WhatsApp Image 2024-12-01 at 09.16.07_29ce416e.jpg">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Viewer</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="pdf-container">
-    <canvas id="pdf-canvas"></canvas>
-  </div>
-  
-  <div id="controls">
-    <button id="prev" onclick="goToPreviousPage()"> < </button>
-    <button id="next" onclick="goToNextPage()"> > </button>
-    <span>Page: <span id="page-num">1</span> / <span id="page-count">1</span></span>
-  </div>
- <label for="upload"> upload</label>
-  <input type="file" id="upload" accept="application/pdf" onchange="loadPDF(event)" />
+    <div class="container">
+        <h1>File Viewer</h1>
+        <input type="file" id="fileInput" />
+        <button id="viewButton">View</button>
 
-  <script src="main.js"></script>
+        <div id="fileDisplayArea"></div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
+

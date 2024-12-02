@@ -1,59 +1,50 @@
-let pdfDoc = null;
-let currentPage = 1;
-let pageNum = document.getElementById('page-num');
-let pageCount = document.getElementById('page-count');
-let canvas = document.getElementById('pdf-canvas');
-let ctx = canvas.getContext('2d');
 
-const renderPage = (num) => {
-  pdfDoc.getPage(num).then((page) => {
-    const viewport = page.getViewport({ scale: 1 });
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
+// script.js
+document.getElementById('viewButton').addEventListener('click', function() {
+  const fileInput = document.getElementById('fileInput');
+  const fileDisplayArea = document.getElementById('fileDisplayArea');
+  const file = fileInput.files[0];
 
-    page.render({
-      canvasContext: ctx,
-      viewport: viewport,
-    });
+  if (file) {
+      const fileType = file.type;
+      fileDisplayArea.innerHTML = ''; // Clear previous content
+      fileDisplayArea.style.display = 'block'; // Show the display area
 
-    pageNum.textContent = num;
-  });
-};
-
-const loadPDF = (event) => {
-  const file = event.target.files[0];
-  if (file.type !== 'application/pdf') {
-    alert('Please upload a valid PDF file.');
-    return;
-  }
-
-  const fileReader = new FileReader();
-  fileReader.onload = () => {
-    const loadingTask = pdfjsLib.getDocument(fileReader.result);
-    loadingTask.promise.then(
-      (pdf) => {
-        pdfDoc = pdf;
-        pageCount.textContent = pdf.numPages;
-        renderPage(currentPage);
-      },
-      (error) => {
-        console.error('Error loading PDF:', error);
+      if (fileType.startsWith('image/')) {
+          // Display images
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '400px';
+          fileDisplayArea.appendChild(img);
+      } else if (fileType === 'application/pdf') {
+          // Display PDF
+          const pdfIframe = document.createElement('iframe');
+          pdfIframe.src = URL.createObjectURL(file);
+          pdfIframe.width = '100%';
+          pdfIframe.height = '500px';
+          fileDisplayArea.appendChild(pdfIframe);
+      } else if (fileType.startsWith('audio/')) {
+          // Display audio files
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = URL.createObjectURL(file);
+          fileDisplayArea.appendChild(audio);
+      } else if (fileType.startsWith('text/')) {
+          // Display text files
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const textArea = document.createElement('textarea');
+              textArea.value = e.target.result;
+              textArea.rows = 10;
+              textArea.cols = 50;
+              fileDisplayArea.appendChild(textArea);
+          };
+          reader.readAsText(file);
+      } else {
+          fileDisplayArea.innerHTML = 'Unsupported file type!';
       }
-    );
-  };
-  fileReader.readAsArrayBuffer(file);
-};
-
-const goToNextPage = () => {
-  if (currentPage < pdfDoc.numPages) {
-    currentPage++;
-    renderPage(currentPage);
+  } else {
+      alert('Please select a file!');
   }
-};
-
-const goToPreviousPage = () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderPage(currentPage);
-  }
-};
+});
