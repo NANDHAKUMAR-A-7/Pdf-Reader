@@ -27,3 +27,25 @@ main{
   margin-top: 50px;
   letter-spacing: 1px;
 }
+
+.scroll-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@keyframes scroll {
+  100% {
+      transform: translateX(100%);
+  }
+  0% {
+      transform: translateX(-100%);
+  }
+}
+
